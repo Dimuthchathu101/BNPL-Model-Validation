@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>API Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+    <h2 class="mb-4 text-center">BNPL API Documentation</h2>
+    <div class="alert alert-info">All endpoints require <code>X-API-KEY: demo-api-key-123</code> in the request headers.</div>
+    <div class="mb-4">
+        <h4>GET <code>/api/products</code></h4>
+        <p>Returns the product catalog.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" http://localhost:5000/api/products</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/transactions</code></h4>
+        <p>Returns all transactions. Optional filters: <code>user</code>, <code>provider</code>, <code>product</code>, <code>region</code>.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" "http://localhost:5000/api/transactions?user=User1&region=US"</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/transactions.csv</code></h4>
+        <p>Download all transactions as CSV.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" -O http://localhost:5000/api/transactions.csv</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/repayments</code></h4>
+        <p>Returns all repayments. Optional filter: <code>user</code>.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" "http://localhost:5000/api/repayments?user=User1"</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/repayments.csv</code></h4>
+        <p>Download all repayments as CSV.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" -O http://localhost:5000/api/repayments.csv</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/users</code></h4>
+        <p>Returns all users.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" http://localhost:5000/api/users</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/providers</code></h4>
+        <p>Returns enabled BNPL providers.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" http://localhost:5000/api/providers</pre>
+    </div>
+    <div class="mb-4">
+        <h4>POST <code>/api/kyc-check</code></h4>
+        <p>Simulate a KYC/AML check. <code>amount</code> required in JSON body.</p>
+        <pre aria-label="Example Request">curl -X POST -H "X-API-KEY: demo-api-key-123" -H "Content-Type: application/json" -d '{"amount":200}' http://localhost:5000/api/kyc-check</pre>
+    </div>
+    <div class="mb-4">
+        <h4>POST <code>/api/checkout</code></h4>
+        <p>Simulate a BNPL checkout. JSON body: <code>user</code>, <code>product</code>, <code>provider</code>, <code>region</code>, <code>consent</code>, <code>amount</code>.</p>
+        <pre aria-label="Example Request">curl -X POST -H "X-API-KEY: demo-api-key-123" -H "Content-Type: application/json" -d '{"user":"User1","product":"Wireless Headphones","provider":"Klarna","region":"US","consent":true,"amount":100}' http://localhost:5000/api/checkout</pre>
+    </div>
+    <div class="mb-4">
+        <h4>POST <code>/api/virtual-card</code></h4>
+        <p>Simulate virtual card generation.</p>
+        <pre aria-label="Example Request">curl -X POST -H "X-API-KEY: demo-api-key-123" http://localhost:5000/api/virtual-card</pre>
+    </div>
+    <div class="mb-4">
+        <h4>POST <code>/api/underwriting</code></h4>
+        <p>AI underwriting: JSON body: <code>utilization</code>, <code>region</code>, <code>income_verified</code>.</p>
+        <pre aria-label="Example Request">curl -X POST -H "X-API-KEY: demo-api-key-123" -H "Content-Type: application/json" -d '{"utilization":0.3,"region":"US","income_verified":true}' http://localhost:5000/api/underwriting</pre>
+    </div>
+    <div class="mb-4">
+        <h4>POST <code>/api/subscription</code></h4>
+        <p>Create a recurring BNPL subscription. JSON body: <code>user</code>, <code>product</code>, <code>amount</code>, <code>interval</code>.</p>
+        <pre aria-label="Example Request">curl -X POST -H "X-API-KEY: demo-api-key-123" -H "Content-Type: application/json" -d '{"user":"User1","product":"Smart Watch","amount":50,"interval":"monthly"}' http://localhost:5000/api/subscription</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/audit-log</code></h4>
+        <p>Returns the audit/consent log (JSON array).</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" http://localhost:5000/api/audit-log</pre>
+    </div>
+    <div class="mb-4">
+        <h4>GET <code>/api/audit-log.csv</code></h4>
+        <p>Download the audit/consent log as CSV.</p>
+        <pre aria-label="Example Request">curl -H "X-API-KEY: demo-api-key-123" -O http://localhost:5000/api/audit-log.csv</pre>
+    </div>
+    <a href="/" class="btn btn-link mt-3" aria-label="Back to Home">Back to Home</a>
+</body>
+</html> 

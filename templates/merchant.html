@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Merchant Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="container py-4">
+    <h2 class="mb-4 text-center">Merchant Dashboard</h2>
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Sales</h5>
+                    <p class="card-text display-6">${{ total_sales | round(2) }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">BNPL Sales</h5>
+                    <p class="card-text display-6">${{ bnpl_sales | round(2) }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Average Order Value</h5>
+                    <p class="card-text display-6">${{ aov | round(2) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Cart Abandonment Rate</h5>
+                    <p class="card-text display-6">{{ (cart_abandonment_rate * 100) | round(1) }}%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Conversion Rate</h5>
+                    <p class="card-text display-6">{{ (conversion_rate * 100) | round(1) }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sales by Day</h5>
+                    <canvas id="salesByDayChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sales by Month</h5>
+                    <canvas id="salesByMonthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">BNPL Provider Breakdown</h5>
+                    <canvas id="providerPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Top Products Sold</h5>
+                    <canvas id="productBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Customer Segmentation</h5>
+                    <p class="card-text">Repeat Customers: <strong>{{ repeat_customers }}</strong></p>
+                    <p class="card-text">New Customers: <strong>{{ new_customers }}</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Default & Loss Rates</h5>
+                    <p class="card-text">Default Rate: <strong>{{ (default_rate * 100) | round(1) }}%</strong></p>
+                    <p class="card-text">Loss Rate: <strong>{{ (loss_rate * 100) | round(1) }}%</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="mt-4">Compliance & Security</h4>
+    <div class="alert alert-secondary mb-2">Your store is PCI-DSS compliant. All payment data is encrypted and secure.</div>
+    <div class="alert alert-warning mb-2">All BNPL offers are transparent and comply with CFPB BNPL rules (2024) and regional regulations.</div>
+    <div class="alert alert-info mb-2">APR/fee transparency is enforced for all BNPL providers. Soft credit checks are performed for instant approval with no impact to customer credit scores.</div>
+    <h4 class="mt-4">Recent BNPL Transactions</h4>
+    <table class="table table-sm table-bordered">
+        <thead><tr><th>User</th><th>Amount</th><th>Date</th></tr></thead>
+        <tbody>
+            {% for t in recent_tx %}
+            <tr><td>{{ t.user }}</td><td>${{ t.amount }}</td><td>{{ t.timestamp.strftime('%Y-%m-%d') if t.timestamp else t.timestamp }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="alert alert-info mt-4">
+        <strong>Risk Mitigation:</strong> {% if risk_mitigation %}You receive full upfront payment. BNPL provider absorbs fraud/default risk.{% else %}Standard payment terms apply.{% endif %}
+    </div>
+    <h4 class="mt-4">Promotions & Shoppable Content</h4>
+    <form method="post" class="mb-3 row g-2 align-items-end">
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="promo_title" placeholder="Promotion Title">
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="promo_desc" placeholder="Promotion Description">
+        </div>
+        <div class="col-md-3">
+            <button type="submit" name="add_promo" value="1" class="btn btn-success w-100">Add Promotion</button>
+        </div>
+    </form>
+    <div class="row">
+        {% for promo in promotions %}
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ promo.title }}</h5>
+                    <p class="card-text">{{ promo.desc }}</p>
+                    <form method="post">
+                        <button type="submit" name="remove_promo" value="{{ loop.index0 }}" class="btn btn-danger btn-sm">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <h4 class="mt-4">BNPL Provider Controls</h4>
+    <form method="post" class="mb-3">
+        {% for prov in provider_names %}
+        <button type="submit" name="toggle_provider" value="{{ prov }}" class="btn btn-outline-primary me-2 mb-2 {% if prov in enabled_providers %}active{% endif %}">
+            {{ prov }} {% if prov in enabled_providers %}(Enabled){% else %}(Disabled){% endif %}
+        </button>
+        {% endfor %}
+    </form>
+    <h4 class="mt-4">Merchant Payout Status</h4>
+    <div class="alert alert-success mb-2">Payout Status: <strong>{{ payout_status }}</strong> ({{ payout_timing }})</div>
+    <h4 class="mt-4">Audit Trail & Consent Log</h4>
+    <table class="table table-sm table-bordered">
+        <thead><tr><th>User</th><th>Region</th><th>Product</th><th>Provider</th><th>Consent</th><th>KYC</th><th>Credit Check</th><th>Timestamp</th></tr></thead>
+        <tbody>
+            {% for entry in audit_log[-20:] %}
+            <tr>
+                <td>{{ entry.user }}</td>
+                <td>{{ entry.region }}</td>
+                <td>{{ entry.product }}</td>
+                <td>{{ entry.provider }}</td>
+                <td>{% if entry.consent %}Yes{% else %}No{% endif %}</td>
+                <td>{% if entry.kyc_required %}Yes{% else %}No{% endif %}</td>
+                <td>{% if entry.credit_check_passed %}Pass{% else %}Fail{% endif %}</td>
+                <td>{{ entry.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/api/audit-log" class="btn btn-outline-secondary mb-4" aria-label="Download Audit Log">Download Full Audit Log (JSON)</a>
+    <a href="{{ url_for('home') }}" class="btn btn-link mt-3">Back to Home</a>
+    <script>
+        // Sales by Day Chart
+        const salesByDayCtx = document.getElementById('salesByDayChart').getContext('2d');
+        new Chart(salesByDayCtx, {
+            type: 'line',
+            data: {
+                labels: {{ sales_by_day.keys()|list|map('string')|list|tojson }},
+                datasets: [{
+                    label: 'Sales',
+                    data: {{ sales_by_day.values()|list|tojson }},
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true
+                }]
+            }
+        });
+        // Sales by Month Chart
+        const salesByMonthCtx = document.getElementById('salesByMonthChart').getContext('2d');
+        new Chart(salesByMonthCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ sales_by_month.keys()|list|tojson }},
+                datasets: [{
+                    label: 'Sales',
+                    data: {{ sales_by_month.values()|list|tojson }},
+                    backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                }]
+            }
+        });
+        // Provider Pie Chart
+        const providerPieCtx = document.getElementById('providerPieChart').getContext('2d');
+        new Chart(providerPieCtx, {
+            type: 'pie',
+            data: {
+                labels: {{ provider_sales.keys()|list|tojson }},
+                datasets: [{
+                    data: {{ provider_sales.values()|list|tojson }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)'
+                    ]
+                }]
+            }
+        });
+        // Product Bar Chart
+        const productBarCtx = document.getElementById('productBarChart').getContext('2d');
+        new Chart(productBarCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ product_sales.keys()|list|tojson }},
+                datasets: [{
+                    label: 'Units Sold',
+                    data: {{ product_sales.values()|list|tojson }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                }]
+            }
+        });
+    </script>
+</body>
+</html> 
