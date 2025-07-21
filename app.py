@@ -314,6 +314,9 @@ BNPL_PROVIDERS = [
     {'name': 'Afterpay', 'apr': 0.0, 'fee': 0.0}
 ]
 
+# Always define enabled_providers at startup
+enabled_providers = set([p['name'] for p in BNPL_PROVIDERS])
+
 promotions = [
     {'title': 'Summer Sale: 10% off with BNPL!', 'desc': 'Boost your sales with our summer BNPL promo.'},
     {'title': 'Free Shipping for BNPL Orders', 'desc': 'Encourage larger carts with free shipping.'}

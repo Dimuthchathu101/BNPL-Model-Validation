@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container mt-5">
+{% extends 'base.html' %}
+{% block title %}User Dashboard{% endblock %}
+{% block content %}
     <h1>User Dashboard</h1>
     <table class="table table-bordered table-hover mt-4">
         <thead class="table-light">
@@ -23,16 +18,44 @@
             {% for user in users %}
             <tr>
                 <td>{{ user.name }}</td>
-                <td>{{ user.risk_scores.champion }}</td>
-                <td>{{ user.risk_scores.challenger }}</td>
-                <td>{{ (user.utilization * 100) | round(1) }}%</td>
+                <td>
+                  <span data-bs-toggle="tooltip" title="AI risk score (Champion model)">
+                    {{ user.risk_scores.champion }}
+                  </span>
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ user.risk_scores.champion }}%"></div>
+                  </div>
+                </td>
+                <td>
+                  <span data-bs-toggle="tooltip" title="AI risk score (Challenger model)">
+                    {{ user.risk_scores.challenger }}
+                  </span>
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ user.risk_scores.challenger }}%"></div>
+                  </div>
+                </td>
+                <td>
+                  <span data-bs-toggle="tooltip" title="Credit utilization (outstanding/limit)">
+                    {{ (user.utilization * 100) | round(1) }}%
+                  </span>
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ (user.utilization * 100) | round(1) }}%"></div>
+                  </div>
+                </td>
                 <td>{% if user.default_status %}<span class="text-danger">Yes</span>{% else %}No{% endif %}</td>
-                <td>{{ user.compliance }}</td>
+                <td><span data-bs-toggle="tooltip" title="Regulatory and income compliance">{{ user.compliance }}</span></td>
                 <td><a href="{{ url_for('dashboard_user', name=user.name) }}" class="btn btn-sm btn-info">View</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
-</body>
-</html> 
+{% endblock %}
+{% block scripts %}
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>
+{% endblock %} 
