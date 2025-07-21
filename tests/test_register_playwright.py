@@ -4,15 +4,28 @@ from datetime import datetime, timedelta
 
 BASE_URL = "http://localhost:5000/"
 
-def test_register_user(page: Page):
+@pytest.mark.parametrize("name, dob, expect_success, expect_error", [
+    (lambda: f"TestUser_{datetime.now().strftime('%H%M%S')}", (datetime.now() - timedelta(days=365*20)).strftime('%Y-%m-%d'), True, None),
+    (lambda: f"Underage_{datetime.now().strftime('%H%M%S')}", (datetime.now() - timedelta(days=365*16)).strftime('%Y-%m-%d'), False, "at least 18 years old"),
+    (lambda: "", (datetime.now() - timedelta(days=365*20)).strftime('%Y-%m-%d'), False, None),
+])
+def test_register_user(page: Page, name, dob, expect_success, expect_error):
     page.goto(BASE_URL + "register")
-    assert page.locator("h1, h2").inner_text().lower().find("register") != -1
-    # Fill registration form
-    name = f"TestUser_{datetime.now().strftime('%H%M%S')}"
-    dob = (datetime.now() - timedelta(days=365*20)).strftime('%Y-%m-%d')  # 20 years old
+    if callable(name):
+        name = name()
     page.fill('input[name="name"]', name)
     page.fill('input[name="dob"]', dob)
     page.click('button[type="submit"]')
-    # Should redirect to home and show success message
-    page.wait_for_url(BASE_URL)
-    assert page.locator('.toast-body, .alert-info').inner_text().lower().find("registration successful") != -1 
+    if expect_success:
+        page.wait_for_url(BASE_URL)
+        assert page.locator('.toast-body, .alert-info').inner_text().lower().find("registration successful") != -1
+        # Check user appears in dashboard
+        page.goto(BASE_URL + "dashboard")
+        assert page.locator(f"table tbody tr:has-text('{name}')").is_visible()
+    else:
+        # Should stay on register page or show error
+        if expect_error:
+            assert page.locator('.alert, .toast-body').inner_text().lower().find(expect_error) != -1
+        else:
+            # Required field error (browser validation)
+            assert page.url.endswith("/register") 

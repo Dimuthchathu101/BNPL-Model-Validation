@@ -15,49 +15,54 @@ REPAYMENTS_FILE = os.path.join(DATA_DIR, 'repayments.json')
 INCOME_VERIFICATIONS_FILE = os.path.join(DATA_DIR, 'income_verifications.json')
 AUDIT_LOG_FILE = os.path.join(DATA_DIR, 'audit_log.json')
 
+# --- Data Loaders ---
 def load_json(filename):
+    """Load JSON data from a file. Returns an empty list if the file does not exist."""
     if not os.path.exists(filename):
         return []
     with open(filename, 'r') as f:
         return json.load(f)
 
 def save_json(filename, data):
+    """Save data as JSON to a file, using default=str for datetime serialization."""
     with open(filename, 'w') as f:
         json.dump(data, f, default=str)
 
-# Replace in-memory lists with file-backed storage
-
+# --- User Data Functions ---
 def get_all_users():
+    """Load all users from the users file, converting registration timestamps to datetime objects."""
     users = load_json(USERS_FILE)
-    # Convert timestamp strings to datetime objects
     for u in users:
         if isinstance(u['registered'], str):
             u['registered'] = datetime.fromisoformat(u['registered'])
     return users
 
 def save_all_users(users):
-    # Convert datetime to isoformat for JSON
+    """Save all users to the users file, converting registration datetimes to ISO format."""
     for u in users:
         if isinstance(u['registered'], datetime):
             u['registered'] = u['registered'].isoformat()
     save_json(USERS_FILE, users)
 
+# --- Transaction Data Functions ---
 def get_all_transactions():
+    """Load all transactions, converting timestamps to datetime objects."""
     txs = load_json(TRANSACTIONS_FILE)
-    # Convert timestamp strings to datetime objects
     for t in txs:
         if isinstance(t['timestamp'], str):
             t['timestamp'] = datetime.fromisoformat(t['timestamp'])
     return txs
 
 def save_all_transactions(transactions):
-    # Convert datetime to isoformat for JSON
+    """Save all transactions, converting timestamps to ISO format."""
     for t in transactions:
         if isinstance(t['timestamp'], datetime):
             t['timestamp'] = t['timestamp'].isoformat()
     save_json(TRANSACTIONS_FILE, transactions)
 
+# --- Repayment Data Functions ---
 def get_all_repayments():
+    """Load all repayments, converting timestamps to datetime objects."""
     rps = load_json(REPAYMENTS_FILE)
     for r in rps:
         if isinstance(r['timestamp'], str):
@@ -65,12 +70,15 @@ def get_all_repayments():
     return rps
 
 def save_all_repayments(repayments):
+    """Save all repayments, converting timestamps to ISO format."""
     for r in repayments:
         if isinstance(r['timestamp'], datetime):
             r['timestamp'] = r['timestamp'].isoformat()
     save_json(REPAYMENTS_FILE, repayments)
 
+# --- Income Verification Data Functions ---
 def get_all_income_verifications():
+    """Load all income verifications, converting timestamps to datetime objects."""
     ivs = load_json(INCOME_VERIFICATIONS_FILE)
     for v in ivs:
         if isinstance(v['timestamp'], str):
@@ -78,22 +86,27 @@ def get_all_income_verifications():
     return ivs
 
 def save_all_income_verifications(ivs):
+    """Save all income verifications, converting timestamps to ISO format."""
     for v in ivs:
         if isinstance(v['timestamp'], datetime):
             v['timestamp'] = v['timestamp'].isoformat()
     save_json(INCOME_VERIFICATIONS_FILE, ivs)
 
 def load_audit_log():
+    """Load the audit log from file."""
     return load_json(AUDIT_LOG_FILE)
+
 def save_audit_log(log):
+    """Save the audit log to file."""
     save_json(AUDIT_LOG_FILE, log)
 
 MIN_AGE = 18
 DEFAULT_OVERDUE_DAYS = 60
 DEFAULT_CREDIT_LIMIT = 1000.0
 
-# --- Helper Functions ---
+# --- Helper Functions for Business Logic ---
 def get_user(name):
+    """Return the user dict for a given name, or None if not found."""
     users = get_all_users()
     for u in users:
         if u['name'] == name:
@@ -101,14 +114,17 @@ def get_user(name):
     return None
 
 def get_user_transactions(name):
+    """Return all transactions for a given user name."""
     transactions = get_all_transactions()
     return [t for t in transactions if t['user'] == name]
 
 def get_user_repayments(name):
+    """Return all repayments for a given user name."""
     repayments = get_all_repayments()
     return [r for r in repayments if r['user'] == name]
 
 def get_income_verification_status(name):
+    """Return the latest income verification status for a user, or 'Not Verified' if none found."""
     ivs = get_all_income_verifications()
     for v in ivs[::-1]:
         if v['user'] == name:
@@ -116,6 +132,7 @@ def get_income_verification_status(name):
     return 'Not Verified'
 
 def calculate_utilization(name):
+    """Calculate the credit utilization for a user as outstanding/credit_limit, clamped to [0, 1]."""
     user = get_user(name)
     if not user:
         return 0.0
@@ -127,12 +144,13 @@ def calculate_utilization(name):
     return max(0.0, min(utilization, 1.0))
 
 def calculate_transaction_velocity(name, days=30):
+    """Return the number of transactions for a user in the last 'days' days."""
     now = datetime.now()
     recent = [t for t in get_user_transactions(name) if (now - t['timestamp']).days < days]
     return len(recent)
 
 def is_user_in_default(name):
-    # Overdue if any purchase is unpaid for 60+ days
+    """Return True if any purchase is unpaid for 60+ days, else False."""
     user_tx = get_user_transactions(name)
     user_rp = get_user_repayments(name)
     repayments_by_time = sorted(user_rp, key=lambda r: r['timestamp'])
@@ -154,18 +172,17 @@ def is_user_in_default(name):
     return False
 
 def calculate_risk_scores(name):
-    # Champion: base on utilization, overdue, income verification
+    """Calculate champion and challenger risk scores for a user based on utilization, overdue, income verification, and velocity."""
     utilization = calculate_utilization(name)
     overdue = is_user_in_default(name)
     income_status = get_income_verification_status(name)
     velocity = calculate_transaction_velocity(name, 30)
-    # Champion: 100 - 50*utilization - 30*overdue - 10*not_verified
     champion = 100 - 50*utilization - (30 if overdue else 0) - (10 if income_status != 'Verified' else 0)
-    # Challenger: 100 - 40*utilization - 40*overdue - 10*not_verified - 10*velocity>5
     challenger = 100 - 40*utilization - (40 if overdue else 0) - (10 if income_status != 'Verified' else 0) - (10 if velocity > 5 else 0)
     return {'champion': round(champion, 2), 'challenger': round(challenger, 2)}
 
 def check_compliance(name):
+    """Check compliance for a user: age, income verification for large purchases, etc."""
     user = get_user(name)
     if not user:
         return 'Not Registered'
@@ -173,7 +190,6 @@ def check_compliance(name):
     if age < MIN_AGE:
         return 'Underage'
     if get_income_verification_status(name) != 'Verified':
-        # If any purchase > 500, require verification
         for t in get_user_transactions(name):
             if t['amount'] > 500:
                 return 'Income Not Verified for Large Purchase'

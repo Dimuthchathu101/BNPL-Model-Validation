@@ -1,0 +1,971 @@
+{
+  "summary": {
+    "total_users": 76,
+    "users_with_issues": 16,
+    "users_with_warnings": 66,
+    "issues": 52,
+    "warnings": 66
+  },
+  "results": [
+    {
+      "name": "User1",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 66.97,
+        "challenger": 57.58
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User2",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 52.5,
+        "challenger": 44.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User3",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 69.99,
+        "challenger": 59.99
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User4",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 65.0,
+        "challenger": 56.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User5",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User6",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User7",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User8",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 55.0,
+        "challenger": 46.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User9",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User10",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User11",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User12",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User13",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User14",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User15",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User16",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 65.0,
+        "challenger": 56.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User17",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User18",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User19",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User20",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User21",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User22",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 65.0,
+        "challenger": 56.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User23",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User24",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User25",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User26",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User27",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User28",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User29",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User30",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User31",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User32",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User33",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User34",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User35",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User36",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User37",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User38",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 55.0,
+        "challenger": 46.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User39",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User40",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User41",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User42",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User43",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User44",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User45",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User46",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 65.0,
+        "challenger": 56.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User47",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User48",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User49",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "User50",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "TestUser_122918",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "TestUser_123012",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "TestUser_123153",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "TestUser_123719",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "TestUser_123824",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "TestUser_123920",
+      "issues": [],
+      "warnings": [
+        "Inactive user: no transactions in last 90 days"
+      ],
+      "scores": {
+        "champion": 90.0,
+        "challenger": 90.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "ActiveUser",
+      "issues": [],
+      "warnings": [],
+      "scores": {
+        "champion": 86.25,
+        "challenger": 89.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "HighUtilUser",
+      "issues": [
+        "Non-compliance: Income Not Verified for Large Purchase",
+        "Large purchase without income verification: 950.0",
+        "Large purchase without income verification: 950.0",
+        "Multiple large purchases without income verification: 2",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 40.0,
+        "challenger": 50.0
+      },
+      "compliance": "Income Not Verified for Large Purchase"
+    },
+    {
+      "name": "LowRiskUser",
+      "issues": [
+        "Non-compliance: Income Not Verified for Large Purchase",
+        "Large purchase without income verification: 800.0",
+        "Large purchase without income verification: 800.0",
+        "Multiple large purchases without income verification: 2",
+        "Low risk score in champion: 10.0",
+        "Low risk score in challenger: 10.0"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 10.0,
+        "challenger": 10.0
+      },
+      "compliance": "Income Not Verified for Large Purchase"
+    },
+    {
+      "name": "RepBeforePurchase",
+      "issues": [
+        "Repayment before first purchase: 2025-07-11T12:56:26.316578",
+        "Repayment before first purchase: 2025-07-11T13:00:37.932569"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "DupTxUser",
+      "issues": [
+        "Duplicate transactions: amount 300.0 at 2025-07-18T12:56:26.316578 (2 times)",
+        "Duplicate transactions: amount 300.0 at 2025-07-18T13:00:37.932569 (2 times)"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 50.0,
+        "challenger": 60.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "LargeNoVerif",
+      "issues": [
+        "Non-compliance: Income Not Verified for Large Purchase",
+        "Large purchase without income verification: 950.0",
+        "Large purchase without income verification: 950.0",
+        "Multiple large purchases without income verification: 2",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 40.0,
+        "challenger": 50.0
+      },
+      "compliance": "Income Not Verified for Large Purchase"
+    },
+    {
+      "name": "ActiveUser",
+      "issues": [],
+      "warnings": [],
+      "scores": {
+        "champion": 86.25,
+        "challenger": 89.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "HighUtilUser",
+      "issues": [
+        "Non-compliance: Income Not Verified for Large Purchase",
+        "Large purchase without income verification: 950.0",
+        "Large purchase without income verification: 950.0",
+        "Multiple large purchases without income verification: 2",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 40.0,
+        "challenger": 50.0
+      },
+      "compliance": "Income Not Verified for Large Purchase"
+    },
+    {
+      "name": "LowRiskUser",
+      "issues": [
+        "Non-compliance: Income Not Verified for Large Purchase",
+        "Large purchase without income verification: 800.0",
+        "Large purchase without income verification: 800.0",
+        "Multiple large purchases without income verification: 2",
+        "Low risk score in champion: 10.0",
+        "Low risk score in challenger: 10.0"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 10.0,
+        "challenger": 10.0
+      },
+      "compliance": "Income Not Verified for Large Purchase"
+    },
+    {
+      "name": "RepBeforePurchase",
+      "issues": [
+        "Repayment before first purchase: 2025-07-11T12:56:26.316578",
+        "Repayment before first purchase: 2025-07-11T13:00:37.932569"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "DupTxUser",
+      "issues": [
+        "Duplicate transactions: amount 300.0 at 2025-07-18T12:56:26.316578 (2 times)",
+        "Duplicate transactions: amount 300.0 at 2025-07-18T13:00:37.932569 (2 times)"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 50.0,
+        "challenger": 60.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "LargeNoVerif",
+      "issues": [
+        "Non-compliance: Income Not Verified for Large Purchase",
+        "Large purchase without income verification: 950.0",
+        "Large purchase without income verification: 950.0",
+        "Multiple large purchases without income verification: 2",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification",
+        "High relative transaction (950.0 > 90% of 1000.0) without income verification"
+      ],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 40.0,
+        "challenger": 50.0
+      },
+      "compliance": "Income Not Verified for Large Purchase"
+    },
+    {
+      "name": "NegTxUser",
+      "issues": [
+        "Outstanding negative balance: -100.00",
+        "Over-repayment: repaid 0, purchased -100.0"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "OverpayUser",
+      "issues": [
+        "Outstanding negative balance: -100.00"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 95.0,
+        "challenger": 96.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "FutureTxUser",
+      "issues": [
+        "Future-dated transaction: 2025-07-26T13:00:37.932569"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 95.0,
+        "challenger": 96.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "ZeroLimitUser",
+      "issues": [
+        "Non-positive credit limit: 0.0"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 100.0,
+        "challenger": 100.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "MultiLargeUser",
+      "issues": [],
+      "warnings": [
+        "High utilization: 1.00"
+      ],
+      "scores": {
+        "champion": 50.0,
+        "challenger": 60.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "SuspiciousRpUser",
+      "issues": [
+        "Suspicious repayment: 0.0 on 2025-07-19T13:00:37.932569",
+        "Suspicious repayment: -50.0 on 2025-07-20T13:00:37.932569"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 92.5,
+        "challenger": 94.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "SameDayUser",
+      "issues": [],
+      "warnings": [
+        "High transaction velocity: 12 in 7 days"
+      ],
+      "scores": {
+        "champion": 70.0,
+        "challenger": 66.0
+      },
+      "compliance": "Compliant"
+    },
+    {
+      "name": "UnderageUser",
+      "issues": [
+        "Non-compliance: Underage"
+      ],
+      "warnings": [],
+      "scores": {
+        "champion": 95.0,
+        "challenger": 96.0
+      },
+      "compliance": "Underage"
+    }
+  ]
+}
