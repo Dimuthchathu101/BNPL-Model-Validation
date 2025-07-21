@@ -125,35 +125,44 @@ def check_compliance(user):
 # --- Custom Checks ---
 # (Each function below implements a specific risk or compliance check)
 def check_velocity(user, user_result):
+    # Checks if the user has more than 10 transactions in the last 7 days.
+    # High transaction velocity may indicate risky or fraudulent behavior.
     """Warn if user has >10 transactions in 7 days (high velocity)."""
     txs_7d = [t for t in get_user_transactions(user['name']) if (datetime.now() - parse_datetime(t['timestamp'])).days < 7]
     if len(txs_7d) > 10:
         user_result['warnings'].append(f"High transaction velocity: {len(txs_7d)} in 7 days")
 
 def check_inactive(user, user_result):
+    # Checks if the user has no transactions in the last 90 days.
+    # Inactive users may be at risk of churn or may not need further credit offers.
     """Warn if user has no transactions in last 90 days (inactive)."""
     txs_90d = [t for t in get_user_transactions(user['name']) if (datetime.now() - parse_datetime(t['timestamp'])).days < 90]
     if not txs_90d:
         user_result['warnings'].append("Inactive user: no transactions in last 90 days")
 
 def check_credit_limit(user, user_result):
+    # Flags users with a non-positive credit limit, which is an invalid or risky state.
     """Flag users with non-positive credit limit."""
     if user.get('credit_limit', DEFAULT_CREDIT_LIMIT) <= 0:
         user_result['issues'].append(f"Non-positive credit limit: {user.get('credit_limit')}")
 
 def check_suspicious_repayments(user, user_result):
+    # Flags repayments that are zero or negative, which may indicate data errors or fraud.
     """Flag repayments with zero or negative amount."""
     for r in get_user_repayments(user['name']):
         if r['amount'] <= 0:
             user_result['issues'].append(f"Suspicious repayment: {r['amount']} on {r['timestamp']}")
 
 def check_multiple_large_purchases(user, user_result):
+    # Flags users who have made more than one large purchase (> $500) without income verification.
+    # This is a compliance and risk concern.
     """Flag multiple large purchases without income verification."""
     large_purchases = [t for t in get_user_transactions(user['name']) if t['amount'] > 500]
     if len(large_purchases) > 1 and get_income_verification_status(user['name']) != 'Verified':
         user_result['issues'].append(f"Multiple large purchases without income verification: {len(large_purchases)}")
 
 def check_future_dated(user, user_result):
+    # Flags any transaction or repayment that is dated in the future, which is likely a data error or fraud.
     """Flag future-dated transactions or repayments."""
     now = datetime.now()
     for t in get_user_transactions(user['name']):
@@ -164,12 +173,16 @@ def check_future_dated(user, user_result):
             user_result['issues'].append(f"Future-dated repayment: {r['timestamp']}")
 
 def check_high_utilization(user, user_result):
+    # Warns if the user's credit utilization exceeds 80%.
+    # High utilization is a risk factor for default.
     """Warn if credit utilization exceeds 80%."""
     util, _ = calculate_utilization(user)
     if util > 0.8:
         user_result['warnings'].append(f"High utilization: {util:.2f}")
 
 def check_low_risk_score(user, user_result):
+    # Flags users whose risk scores (champion or challenger) are below 30.
+    # Low scores indicate high risk of default or non-compliance.
     """Flag risk scores below 30."""
     scores = calculate_risk_scores(user)
     for model, score in scores.items():
@@ -177,6 +190,8 @@ def check_low_risk_score(user, user_result):
             user_result['issues'].append(f"Low risk score in {model}: {score}")
 
 def check_repayment_before_purchase(user, user_result):
+    # Detects repayments made before the user's first purchase.
+    # This is a data anomaly and may indicate a processing error.
     """Detect repayments made before first purchase."""
     tx_times = [parse_datetime(t['timestamp']) for t in get_user_transactions(user['name'])]
     if not tx_times:
@@ -188,6 +203,7 @@ def check_repayment_before_purchase(user, user_result):
             user_result['issues'].append(f"Repayment before first purchase: {r['timestamp']}")
 
 def check_duplicate_transactions(user, user_result):
+    # Identifies duplicate transactions (same amount and timestamp), which may be accidental or fraudulent.
     """Identify duplicate transactions (same amount + timestamp)."""
     seen = {}
     for t in get_user_transactions(user['name']):
@@ -201,6 +217,8 @@ def check_duplicate_transactions(user, user_result):
             user_result['issues'].append(f"Duplicate transactions: amount {key[0]} at {key[1]} ({len(txs)} times)")
 
 def check_high_relative_transaction(user, user_result):
+    # Flags purchases that are greater than 90% of the user's credit limit without income verification.
+    # Large relative purchases are risky if not verified.
     """Flag large purchases relative to credit limit without income verification."""
     credit_limit = user.get('credit_limit', DEFAULT_CREDIT_LIMIT)
     income_status = get_income_verification_status(user['name'])
@@ -211,6 +229,8 @@ def check_high_relative_transaction(user, user_result):
             )
 
 def check_large_purchase_verification(user, user_result):
+    # Checks for any purchase that is either > $500 or > 90% of credit limit without income verification.
+    # This is a compliance and risk check for large, unverified purchases.
     """Check both absolute ($500) and relative (90% of limit) large purchases."""
     credit_limit = user.get('credit_limit', DEFAULT_CREDIT_LIMIT)
     income_status = get_income_verification_status(user['name'])
