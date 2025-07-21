@@ -40,20 +40,28 @@ income_verifications = load_json(INCOME_VERIFICATIONS_FILE)
 
 # --- Helper Functions ---
 def get_user_transactions(name):
-    """Return all transactions for a given user."""
+    # Returns all transactions for the given user by filtering the global transactions list.
+    # This is used to compute user-specific metrics like utilization, velocity, and large purchases.
     return [t for t in transactions if t['user'] == name]
 
 def get_user_repayments(name):
-    """Return all repayments for a given user."""
+    # Returns all repayments for the given user by filtering the global repayments list.
+    # Used to compute outstanding balance and repayment-related checks.
     return [r for r in repayments if r['user'] == name]
 
 def get_income_verification_status(name):
-    """Return the latest income verification status for a user."""
+    # Returns the most recent income verification status for the user.
+    # Scans the income_verifications list in reverse to get the latest entry.
+    # Returns 'Not Verified' if no record is found.
     for v in reversed(income_verifications):
         if v['user'] == name:
             return v['status']
     return 'Not Verified'
 
+# This function calculates the user's credit utilization and outstanding balance.
+# Utilization is defined as (total purchases - total repaid) / credit limit.
+# The result is clamped to [0, 1] to ensure it stays within valid bounds.
+# Outstanding is the net amount owed by the user.
 def calculate_utilization(user):
     """Calculate credit utilization and outstanding balance for a user."""
     credit_limit = user.get('credit_limit', DEFAULT_CREDIT_LIMIT)
@@ -63,8 +71,10 @@ def calculate_utilization(user):
     utilization = outstanding / credit_limit if credit_limit else 0.0
     return max(0.0, min(utilization, 1.0)), outstanding
 
+# This function determines if a user is in default.
+# A user is in default if any purchase remains unpaid for 60+ days.
+# Repayments are applied in order to the oldest transactions first.
 def is_user_in_default(user):
-    """Determine if a user is in default (any purchase unpaid for 60+ days)."""
     user_tx = sorted(get_user_transactions(user['name']), key=lambda t: parse_datetime(t['timestamp']))
     user_rp = sorted(get_user_repayments(user['name']), key=lambda r: parse_datetime(r['timestamp']))
     repayments_by_time = user_rp.copy()
@@ -85,8 +95,11 @@ def is_user_in_default(user):
             return True
     return False
 
+# This function calculates the risk scores for a user using two models:
+# - Champion: penalizes high utilization, overdue status, and lack of income verification.
+# - Challenger: similar, but also penalizes high transaction velocity.
+# Returns a dict with both scores rounded to two decimals.
 def calculate_risk_scores(user):
-    """Calculate champion and challenger risk scores for a user."""
     utilization, _ = calculate_utilization(user)
     overdue = is_user_in_default(user)
     income_status = get_income_verification_status(user['name'])
@@ -95,8 +108,11 @@ def calculate_risk_scores(user):
     challenger = 100 - 40*utilization - (40 if overdue else 0) - (10 if income_status != 'Verified' else 0) - (10 if velocity > 5 else 0)
     return {'champion': round(champion, 2), 'challenger': round(challenger, 2)}
 
+# This function checks compliance for a user.
+# - Returns 'Underage' if user is under 18.
+# - Returns 'Income Not Verified for Large Purchase' if any purchase > $500 and not verified.
+# - Returns 'Compliant' otherwise.
 def check_compliance(user):
-    """Check compliance for age and income verification requirements."""
     age = (datetime.now() - datetime.strptime(user['dob'], '%Y-%m-%d')).days // 365
     if age < MIN_AGE:
         return 'Underage'
